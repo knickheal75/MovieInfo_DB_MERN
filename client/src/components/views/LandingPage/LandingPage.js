@@ -8,17 +8,30 @@ const {Title}= Typography;
 
 function LandingPage() {
 
-const [Movies,setMovies] = useState([]) 
+const [Movies,setMovies] = useState([]);
+const [CurrentPage,setCurrentPage]= useState(0);
 
 useEffect(()=>{
-    fetch(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    fetchMovies(endpoint);
+},[])
+
+const fetchMovies=(path)=>{
+    fetch(path)
     .then(response=>response.json())
     .then(response=>{
-        
-        setMovies(response.results)
-        
-    })
-},[])
+        setMovies([...Movies,...response.results]);
+        setCurrentPage(response.page);
+    
+})
+}
+
+
+const handleMoreEntries=()=>{
+    const endpoint=`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage+1}`;
+    fetchMovies(endpoint);
+}
+
     return (
         <div style={{width:"100%",margin:0}}>
         {/* main image */}
@@ -52,7 +65,7 @@ useEffect(()=>{
         {/* Load More Button */}
         <br />
         <div style={{display:"flex",justifyContent:"center"}}>
-        <button onClick>
+        <button onClick={handleMoreEntries}>
         Load More
         </button>
         </div>
