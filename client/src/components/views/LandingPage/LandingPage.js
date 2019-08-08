@@ -57,7 +57,7 @@ const handleMoreEntries=()=>{
         {Movies.map((movie,index)=>{
             return (<React.Fragment key={index}>
                 <GridCard image={movie.poster_path && `${IMAGE_URL}w500${movie.poster_path}`} 
-                movieID={movie.id}/>
+                movieId={movie.id}/>
             </React.Fragment>)
         })}
         </Row>
