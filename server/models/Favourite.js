@@ -18,11 +18,14 @@ const favouriteSchema = mongoose.Schema({
             type:String,
             
         },
+        moviePost:{
+            type:String,
+        },
         movieRuntime:{
             type:String,
             
         }
-})
+},{ timestamps: true })
 
 
 
